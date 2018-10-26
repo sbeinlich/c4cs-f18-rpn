@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
+import operator
 
+op = {
+        '+' : operator.add,
+        '-' : operator.sub,
+        '*' : operator.mul,
+        '/' : operator.floordiv,
+}
 def calculate(arg):
     # stack for calculator
     stack = []
@@ -13,16 +20,13 @@ def calculate(arg):
                 value = int(token)
                 stack.append(value)
         except ValueError:
-                val1 = stack.pop()
                 val2 = stack.pop()
-                if token == '+':
-                        result = val1 + val2
-                elif token == '-':
-                        result = val2 - val1
-                elif token == '*':
-                        result = val1 * val2
-                elif token == '/':
-                        result = val2 / val1
+                val1 = stack.pop()
+
+                # Look up function in table
+                func = op[token]
+                result = func(val1, val2)
+
                 stack.append(result)
                 return stack[0]
         
