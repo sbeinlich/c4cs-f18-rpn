@@ -13,24 +13,32 @@ def calculate(arg):
     stack = []
 
     # tokenize input
-    stack = arg.split()
+    tokens = arg.split()
 
     # process tokens
-    while len(stack) > 1:
-        token = stack.pop()
-        try:
-                value = int(token)
-                stack.append(value)
-        except ValueError:
-                val2 = int(stack.pop())
-                val1 = int(stack.pop())
+    for token in tokens:
+        if token in op:
+                arg2 = stack.pop()
+                arg1 = stack.pop()
+                result = op[token](arg1, arg2)
+                stack.append(result)
+        else:
+                stack.append(int(token))
 
-                # Look up function in table
-                func = op[token]
-                result = func(val1, val2)
+        # try:
+        #         value = int(token)
+        #         stack.append(value)
+        # except ValueError:
+        #         val2 = int(stack.pop())
+        #         val1 = int(stack.pop())
 
-                stack.append(str(result))
-    return stack[0] 
+        #         # Look up function in table
+        #         func = op[token]
+        #         result = func(val1, val2)
+
+                # stack.append(str(result))
+
+    return stack.pop() 
         
 
 def main():     

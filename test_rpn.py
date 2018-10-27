@@ -20,4 +20,4 @@ class TestBasics(unittest.TestCase):
 
     def test_chain(self):
         result = rpn.calculate('1 1 + 2 *')
-        self.assertEqual(4)
+        self.assertEqual(4, result)
